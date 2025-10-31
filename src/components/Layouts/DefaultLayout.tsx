@@ -40,7 +40,7 @@ export default function DefaultLayout({
           setPermissions(perms);
         })
         .catch(() => {
-          // ignore; sidebar will just show nothing if truly no permission
+
         });
     }
   }, []);
