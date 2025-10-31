@@ -313,14 +313,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       >
         <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
           <Link href="/">
-            <Image
-              className="dark:hidden"
-              width={100}
-              height={32}
-              src={"/images/logo/logo.png"}
-              alt="Logo"
-              priority
-            />
+          <Link href="/" className="text-2xl font-bold flex items-center text-white"> <span className="text-green-400">Krishi</span>Bazar </Link>
             <Image
               className="hidden dark:block"
               width={100}

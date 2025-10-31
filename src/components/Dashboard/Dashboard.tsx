@@ -6,7 +6,6 @@ import userService from "@/services/userServices";
 import productService from "@/services/productServices";
 import projectService from "@/services/projectServices";
 
-// Removed dummy charts and tables; dashboard now shows only live data
 
 type KpiCounts = {
   users: number;
@@ -32,12 +31,10 @@ const Dashboard: React.FC = () => {
     const load = async () => {
       try {
         const [usersRes, productsRes, projectsRes] = await Promise.all([
-          // Users
           userService
             .getAllUsers()
             .then((r: any) => r?.data?.users?.length ?? r?.data?.length ?? 0)
             .catch(() => 0),
-          // Products (may be paginated)
           productService
             .getAllProducts({ page: 1, limit: 10 })
             .then(
@@ -48,7 +45,6 @@ const Dashboard: React.FC = () => {
                 0,
             )
             .catch(() => 0),
-          // Projects (also filter pending for a separate KPI)
           projectService
             .getAllProjects({ page: 1, limit: 10 })
             .then((r: any) => {
@@ -67,8 +63,6 @@ const Dashboard: React.FC = () => {
             .catch(() => ({ total: 0, pending: 0 })),
         ]);
 
-        // Orders count: there is an orders page fetching directly; try a lightweight head call
-        // If it fails, keep at 0. This avoids heavy table loads here.
         const ordersResponse = await fetch(
           "http://localhost:4000/admin/orders",
           {
@@ -110,7 +104,6 @@ const Dashboard: React.FC = () => {
         </h4>
       </div>
 
-      {/* KPI Cards - live counts only */}
       <div className="mb-6 grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
         <div className="col-span-12 sm:col-span-6 xl:col-span-3">
           <CardDataStats
@@ -218,7 +211,6 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Recent Orders - live data only */}
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
         <div className="col-span-12">
           <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
